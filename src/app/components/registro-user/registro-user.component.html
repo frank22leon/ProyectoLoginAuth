@@ -1,0 +1,94 @@
+<div class="container-form">
+    <div class="container-form-child" #registerContainer>
+        <div class="information">
+          <div class="info-childs">
+            <h2>Bienvenido</h2>
+            <p>
+              Para unirte a nuestra comunidad, por favor inicia sesión con tus
+              datos.
+            </p>
+            <input
+              type="button"
+              value="Inicia Sesión"
+              (click)="mostrarFormularioLogin()"
+              id="sign-in"
+            />
+          </div>
+        </div>
+        <div class="form-information">
+          <div class="form-information-childs">
+            <h2>Crear una cuenta</h2>
+            <div class="icons">
+              <i class="bx bxl-google"></i>
+              <i class="bx bxl-github"></i>
+              <i class="bx bxl-linkedin"></i>
+            </div>
+            <p>O usa tu email para registrarte.</p>
+            <form
+              class="form"
+              [formGroup]="registerForm"
+              (ngSubmit)="registerUser()"
+            >
+              <label>
+                <i class="bx bx-user"></i>
+                <input
+                  type="text"
+                  placeholder="Usuario"
+                  formControlName="usuario"
+                />
+              </label>
+              <label>
+                <i class="bx bx-lock-alt"></i>
+                <input
+                  [type]="showPassword['password'] ? 'text' : 'password'"
+                  placeholder="Contraseña"
+                  formControlName="password"
+                />
+                <i
+                  class="bx"
+                  [ngClass]="showPassword['password'] ? 'bx-hide' : 'bx-show'"
+                  (click)="togglePasswordVisibility('password')"
+                ></i>
+              </label>
+              <div
+                *ngIf="registerForm.controls['password'].errors?.['weak']"
+                class="error-message"
+              >
+                La contraseña debe tener al menos<br />
+                una letra mayúscula, una letra minúscula,<br />
+                un número y un símbolo.
+              </div>
+              <label>
+                <i class="bx bx-lock-alt"></i>
+                <input
+                  [type]="showPassword['confirmPassword'] ? 'text' : 'password'"
+                  placeholder="Repetir Contraseña"
+                  formControlName="confirmPassword"
+                />
+                <i
+                  class="bx"
+                  [ngClass]="
+                    showPassword['confirmPassword'] ? 'bx-hide' : 'bx-show'
+                  "
+                  (click)="togglePasswordVisibility('confirmPassword')"
+                ></i>
+              </label>
+              <div *ngIf="registerForm.errors?.['mismatch']" class="error-message">
+                Las contraseñas no coinciden.
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="activar2FA"
+                  formControlName="activar2FAControl"
+                />
+                <p class="checkbox-text">
+                  Activar doble factor de autenticación (2FA)
+                </p>
+              </div>
+              <input type="submit" value="Registrarse" />
+            </form>
+          </div>
+        </div>
+      </div>
+</div>

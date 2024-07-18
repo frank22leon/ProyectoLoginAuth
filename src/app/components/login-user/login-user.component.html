@@ -1,0 +1,57 @@
+<div class="container-form">
+  <div class="container-form-child" >
+    <div class="information">
+      <div class="info-childs">
+        <h2>Bienvenido nuevamente!!</h2>
+        <p>
+          Para unirte a nuestra comunidad, por favor inicia sesión con tus
+          datos.
+        </p>
+        <input
+          type="button"
+          value="Registrarse"
+          (click)="mostrarFormularioRegistro()"
+          id="sign-up"
+        />
+      </div>
+    </div>
+    <div class="form-information">
+      <div class="form-information-childs">
+        <h2>Inicia Sesión</h2>
+        <div class="icons">
+          <i class="bx bxl-google"></i>
+          <i class="bx bxl-github"></i>
+          <i class="bx bxl-linkedin"></i>
+        </div>
+        <p>O inicia sesión con una cuenta.</p>
+        <form class="form" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+          <label>
+            <i class="bx bx-user"></i>
+            <input
+              type="text"
+              placeholder="Usuario"
+              formControlName="usuario"
+            />
+          </label>
+          <label>
+            <i class="bx bx-lock-alt"></i>
+            <input
+              [type]="showPassword['login'] ? 'text' : 'password'"
+              placeholder="Contraseña"
+              formControlName="password"
+            />
+            <i
+              class="bx"
+              [ngClass]="showPassword['login'] ? 'bx-hide' : 'bx-show'"
+              (click)="togglePasswordVisibility('login')"
+            ></i>
+          </label>
+          <div *ngIf="userStatus === 'unauthorized'" class="error-message">
+            Usuario o contraseña incorrectos.
+          </div>
+          <input type="submit" value="Iniciar Sesión" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

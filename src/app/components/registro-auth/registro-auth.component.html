@@ -1,0 +1,46 @@
+<div class="container-form">
+    <div class="container-form-child" #twoFactorContainer>
+        <div class="information">
+          <div class="info-childs">
+            <h2>Activar Autenticación de Doble Factor (2FA)</h2>
+            <p>
+              Escanea el código QR o introduce el código manualmente para activar la
+              autenticación de doble factor.
+            </p>
+            <input
+              type="button"
+              value="Salir"
+              (click)="mostrarFormularioRegistro()"
+              id="cancelar-2fa"
+            />
+          </div>
+        </div>
+        <div class="form-information">
+          <div class="form-information-childs">
+            <h2>Activar 2FA</h2>
+            <div class="icons">
+              <!-- Mostrar el QR -->
+              <img
+                *ngIf="qrCodeImageUrl"
+                [src]="qrCodeImageUrl"
+                alt="QR Code"
+                class="qr-code"
+              />
+            </div>
+            <form class="form" [formGroup]="twoFactorForm" (ngSubmit)="validarCodigo2FA()">
+              <label>
+                <i class="bx bx-key"></i>
+                <input
+                  type="text"
+                  placeholder="Código 2FA"
+                  formControlName="codigo2FA"
+                />
+              </label>
+              <input type="submit" value="Validar" />
+            </form>
+          </div>
+        </div>
+      </div>
+
+</div>
+

@@ -1,0 +1,23 @@
+<div class="container-form">
+  <div class="container-form-child" >
+    <div class="information">
+      <div class="info-childs">
+        <h2>Bienvenido {{ usuarioActual }}</h2>
+        <p>
+          Para más seguridad en el inicio de sesión, activa el doble factor de
+          autenticación.
+        </p>
+        <input type="button" value="Activar 2FA" id="sign-in" (click)="abrirFormularioActivar2FA()"/>
+      </div>
+    </div>
+    <div class="form-information">
+      <div class="form-information-childs">
+        <h2>Bienvenido {{ usuarioActual }}</h2>
+        <p>Haz iniciado sesión correctamente</p>
+        <form class="form" [formGroup]="bienvenido" (ngSubmit)="logout()">
+          <input type="submit" value="Cerrar Sesión" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
