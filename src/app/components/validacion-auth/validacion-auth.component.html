@@ -1,38 +1,43 @@
 <div class="container-form">
-    <div class="container-form-child" >
-        <div class="information">
-          <div class="info-childs">
-            <h2>Validar Código 2FA</h2>
-            <p>
-              Introduce el código de autenticación de doble factor (2FA) para
-              continuar.
-            </p>
-<!--             <input
-              type="button"
-              value="Cancelar"
-              (click)="mostrarFormularioIngreso()"
-              id="cancelar-validacion-2fa"
-            /> -->
-          </div>
-        </div>
-        <div class="form-information">
-          <div class="form-information-childs">
-            <h2>Introducir Código 2FA</h2>
-            <form class="form" [formGroup]="validacion2FAForm" (ngSubmit)="validarCodigo2FA()">
-              <label>
-                <i class="bx bx-key"></i>
-                <input
-                  type="text"
-                  placeholder="Código 2FA"
-                  formControlName="codigo2FA"
-                />
-              </label>
-              <div *ngIf="codigo2FAInvalido" class="error-message">
-                Código 2FA incorrecto.
-              </div>
-              <input type="submit" value="Validar" />
-            </form>
-          </div>
-        </div>
+  <div class="container-form-child">
+    <div class="information">
+      <div class="info-childs">
+        <h2>Validar Código 2FA</h2>
+        <p>
+          Introduce el código de autenticación de doble factor (2FA) para
+          continuar.
+        </p>
+        <input
+          type="button"
+          value="Salir"
+          (click)="mostrarFormularioIngreso()"
+          id="cancelar-validacion-2fa"
+        />
       </div>
+    </div>
+    <div class="form-information">
+      <div class="form-information-childs">
+        <h2>Introducir Código 2FA</h2>
+        <form
+          class="form"
+          [formGroup]="validacion2FAForm"
+          (ngSubmit)="validarCodigo2FA()"
+        >
+          <label>
+            <i class="bx bx-key"></i>
+            <input
+              type="text"
+              placeholder="Código 2FA"
+              formControlName="codigo2FA"
+              maxlength="6"
+            />
+          </label>
+          <div *ngIf="codigo2FAInvalido" class="error-message">
+            Código 2FA incorrecto.
+          </div>
+          <input type="submit" value="Validar" />
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -109,7 +109,7 @@ export class RegistroUserComponent {
       next: (response) => {
         this.userStatus = 'registered';
         this.message = 'Usuario registrado exitosamente';
-        this.notificationService.showError(this.message);
+        this.notificationService.showSuccess(this.message);
         this.usuarioActual = formData.usuario;
         if (this.activar2FA) {
           this.router.navigate(['registro-auth'], {

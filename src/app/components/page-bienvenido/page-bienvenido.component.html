@@ -4,10 +4,15 @@
       <div class="info-childs">
         <h2>Bienvenido {{ usuarioActual }}</h2>
         <p>
-          Para más seguridad en el inicio de sesión, activa el doble factor de
-          autenticación.
+          {{ twoFactorEnabled ? 'Tu doble factor de autenticación está activo.' : 'Para más seguridad en el inicio de sesión, activa el doble factor de autenticación.' }}
         </p>
-        <input type="button" value="Activar 2FA" id="sign-in" (click)="abrirFormularioActivar2FA()"/>
+        <ng-container *ngIf="!twoFactorEnabled">
+          <input type="button" value="Activar 2FA" id="sign-in" (click)="abrirFormularioActivar2FA()" />
+        </ng-container>
+        <!-- Aquí puedes añadir el texto adicional que necesitas -->
+        <ng-container *ngIf="twoFactorEnabled">
+          <p>Estás en el portal de Bienvenida</p>
+        </ng-container>
       </div>
     </div>
     <div class="form-information">

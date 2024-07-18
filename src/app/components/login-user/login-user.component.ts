@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,10 +22,9 @@ type ShowPasswordState = {
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, NgClass, CommonModule],
   templateUrl: './login-user.component.html',
-  styleUrl: './login-user.component.scss'
+  styleUrl: './login-user.component.scss',
 })
 export class LoginUserComponent {
-
   loginForm!: FormGroup;
   message: string = '';
   usuarioActual: string = '';
@@ -39,7 +38,7 @@ export class LoginUserComponent {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginServiceService,                                                                                                                                                                                 
+    private loginService: LoginServiceService,
     private router: Router,
     private notificationService: NotificationServiceService
   ) {
@@ -51,7 +50,7 @@ export class LoginUserComponent {
 
   ngOnInit() {}
 
-   loginUser() {
+  loginUser() {
     const formData = {
       usuario: this.loginForm.value.usuario,
       password: this.loginForm.value.password,
@@ -60,18 +59,21 @@ export class LoginUserComponent {
     this.loginService.validateLogin(formData).subscribe({
       next: (response) => {
         if (response.twoFactorEnabled) {
-          this.usuarioActual  = formData.usuario;
-          this.router.navigate(['validacion-auth'] , {
-            queryParams: { usuarioActual: formData.usuario }
+          this.loginService.setLoginStatus(true);
+          this.usuarioActual = formData.usuario;
+          this.router.navigate(['validacion-auth'], {
+            queryParams: { usuarioActual: formData.usuario },
           });
-          this.loginForm.reset();        
-        } else {
-          // Si no tiene 2FA habilitado, proceder a mostrar la página de bienvenida
-          this.usuarioActual  = formData.usuario;
           this.loginForm.reset();
-          this.router.navigate(['page-bienvenida'] , {
-            queryParams: { usuarioActual: formData.usuario }
-          });         
+        } else {
+          this.loginService.setLoginStatus(true);
+          this.loginService.setTwoFactorAuthenticatedStatus(true);
+          this.usuarioActual = formData.usuario;
+          this.loginForm.reset();
+          this.notificationService.showSuccess('Inicio de sesion exitoso');
+          this.router.navigate(['page-bienvenida'], {
+            queryParams: { usuarioActual: formData.usuario },
+          });
         }
       },
       error: (error) => {
@@ -88,8 +90,8 @@ export class LoginUserComponent {
   }
   togglePasswordVisibility(field: keyof ShowPasswordState) {
     this.showPassword[field] = !this.showPassword[field];
-  } 
+  }
   mostrarFormularioRegistro() {
-    this.router.navigate(['registro-user'])
+    this.router.navigate(['registro-user']);
   }
 }

@@ -53,7 +53,7 @@ export class RegistroAuthComponent {
     this.loginService.validarCodigo(usuario, codigo).subscribe({
       next: (isValid) => {
         if (isValid) {          
-          this.notificationService.showError('Código 2FA válido. Autenticación exitosa.');
+          this.notificationService.showSuccess('Código 2FA válido. Autenticación exitosa.');
           this.router.navigate(['page-bienvenida'] , {
             queryParams: { usuarioActual: usuario }
           });

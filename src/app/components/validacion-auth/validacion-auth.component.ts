@@ -47,11 +47,11 @@ export class ValidacionAuthComponent {
     const usuario = this.usuarioActual;
     const codigo = this.validacion2FAForm.value.codigo2FA;
 
-    console.log(usuario, codigo);
     this.loginService.validarCodigo(usuario, codigo).subscribe({
       next: (isValid) => {
         if (isValid) {
-          this.notificationService.showError('Código 2FA válido. Autenticación exitosa.');
+          this.loginService.setTwoFactorAuthenticatedStatus(true);
+          this.notificationService.showSuccess('Código 2FA válido. Autenticación exitosa.');
           this.router.navigate(['page-bienvenida'] , {
             queryParams: { usuarioActual: usuario }
           });  
@@ -66,5 +66,9 @@ export class ValidacionAuthComponent {
         this.validacion2FAForm.reset();
       },
     });
+  }
+  mostrarFormularioIngreso() {
+    this.usuarioActual = ''; // Resetea el usuario actual
+    this.router.navigate(['login-user']); // Muestra el formulario de inicio de sesión
   }
 }

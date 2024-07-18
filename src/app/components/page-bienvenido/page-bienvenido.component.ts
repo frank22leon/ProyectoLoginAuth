@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgClass, CommonModule } from '@angular/common';
+import { LoginServiceService } from '../../service/login-service.service';
 
 @Component({
   selector: 'app-page-bienvenido',
@@ -13,7 +14,8 @@ import { NgClass, CommonModule } from '@angular/common';
 export class PageBienvenidoComponent {
   bienvenido!: FormGroup;
   usuarioActual: string = '';
-  constructor(private route: ActivatedRoute,private router: Router,  private fb: FormBuilder,) {
+  twoFactorEnabled: boolean = false;
+  constructor(private route: ActivatedRoute,private router: Router,  private fb: FormBuilder, private loginService: LoginServiceService) {
     this.bienvenido = this.fb.group({
     });
   }
@@ -21,6 +23,15 @@ export class PageBienvenidoComponent {
     this.route.queryParams.subscribe(params => {
       this.usuarioActual = params['usuarioActual'];
     });
+    this.obtenerEstadoTwoFactorEnabled();
+  }
+  obtenerEstadoTwoFactorEnabled() {
+    this.loginService.obtenerTwoFactorEnabled(this.usuarioActual)
+      .subscribe((result: boolean) => {
+        this.twoFactorEnabled = result;
+      }, error => {
+        console.error('Error al obtener el estado de TwoFactorEnabled:', error);
+      });
   }
   logout() {
     this.usuarioActual = ''; // Resetea el usuario actual
